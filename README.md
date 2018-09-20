@@ -72,17 +72,19 @@ given S3 bucket.
 
 ```nginx
 set $bucket 'example';
-set $s3_host ${bucket}.s3-eu-west-1.amazonaws.com;
+set $s3_host $bucket.s3-eu-west-1.amazonaws.com;
 
 location / {
   access_by_lua_block {
     require("resty.aws-signature").s3_set_headers(ngx.var.s3_host, ngx.var.uri)
   }
 
-  proxy_set_header Host ${s3_host};
-  proxy_pass https://${s3_host};
+  proxy_pass https://$s3_host;
 }
 ```
+
+Note: you have to set either `s3-<region>` or `s3` as subdomain of
+`amazonaws.com` depending on your need. `s3` will use `us-east-1` region.
 
 ## Contributing
 
