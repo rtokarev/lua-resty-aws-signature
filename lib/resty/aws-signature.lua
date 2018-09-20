@@ -3,7 +3,7 @@ local resty_hmac = require('resty.hmac')
 local resty_sha256 = require('resty.sha256')
 local str = require('resty.string')
 
-local _M = { _VERSION = '0.1.1' }
+local _M = { _VERSION = '0.1.2' }
 
 local function get_credentials ()
   local access_key = os.getenv('AWS_ACCESS_KEY_ID')
@@ -126,7 +126,7 @@ function _M.aws_set_headers(host, uri)
 end
 
 function _M.s3_set_headers(host, uri)
-  aws_set_headers(host, uri)
+  _M.aws_set_headers(host, uri)
   ngx.req.set_header('x-amz-content-sha256', get_sha256_digest(ngx.var.request_body))
 end
 
