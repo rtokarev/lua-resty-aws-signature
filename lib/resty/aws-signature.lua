@@ -3,7 +3,7 @@ local resty_hmac = require('resty.hmac')
 local resty_sha256 = require('resty.sha256')
 local str = require('resty.string')
 
-local _M = { _VERSION = '0.1.0' }
+local _M = { _VERSION = '0.1.1' }
 
 local function get_credentials ()
   local access_key = os.getenv('AWS_ACCESS_KEY_ID')
